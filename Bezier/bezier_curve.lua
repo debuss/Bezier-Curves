@@ -24,7 +24,7 @@ function BezierCurve.new(s, f)
   -- Drawing
   self.precision = 0.1
   self.points_color = {0, 0, 255}
-  self.control_points_size = 15
+  self.control_points_size = 30
   self.control_points_color = {255, 0, 0}
 
   return self
@@ -82,7 +82,7 @@ end
 
 --- Draw the bezier curve on screen
 -- @param self Instance
-function BezierCurve.draw(self)  
+function BezierCurve.draw(self)
   local px = self.start.x
   local py = self.start.y
   local function lerp(a, b, t)
@@ -119,11 +119,12 @@ function BezierCurve.draw(self)
       py = step.y
     end
     love.graphics.line(px, py, self.finish.x, self.finish.y)
-    
+
     if self.visible then
       love.graphics.setColor(self.control_points_color)
       for k, pt in pairs(self.control_points) do
         love.graphics.rectangle("fill", pt.x - self.control_points_size / 2, pt.y - self.control_points_size / 2, self.control_points_size, self.control_points_size)
+        love.graphics.print(k, pt.x - 30, pt.y - 10)
       end
     end
   else
@@ -134,7 +135,7 @@ function BezierCurve.draw(self)
     love.graphics.setColor(self.points_color)
     love.graphics.circle("line", self.start.x, self.start.y, self.control_points_size, 100)
     love.graphics.circle("line", self.finish.x, self.finish.y, self.control_points_size, 100)
-    love.graphics.reset() 
+    love.graphics.reset()
   end
 end
 
